@@ -6,6 +6,7 @@ import Right from "../Right/Right";
 import "./pages.css";
 
 function Pages() {
+  // State
   const [ContactData, setContactData] = useState(ContactDatas);
   const [GroupData, setGroupData] = useState(GroupsData);
   const [ChannelData, setChannelData] = useState(ChannelsData);

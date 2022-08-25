@@ -1,13 +1,31 @@
-import React from "react";
-// import { ContactData } from "../../data/data";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import Messages from "./Messages";
-import SendMessage from "./SendMessage";
+import { BiSend } from "react-icons/bi";
+import "./sendMessage.css";
 import "./rightInfo.css";
 
-function RightInfo({ isGroup, data, setContactData }) {
+function RightInfo({ isGroup, data, setContactData, ContactData }) {
   const { id } = useParams();
   const { name, profilImg } = data[id];
+  const [message, setMessage] = useState("");
+
+  const sendMessages = (isTrue) => {
+    if (message.trim()) {
+      ContactData[id].messages.push({
+        message: message,
+        id: 1,
+        isMessage: isTrue,
+      });
+    }
+    console.log(ContactData[id].messages);
+
+    setMessage("");
+    setContactData([...ContactData]);
+  };
+  const MessageInput = (e) => {
+    setMessage(e.target.value);
+  };
 
   return (
     <div className="right-info">
@@ -21,7 +39,34 @@ function RightInfo({ isGroup, data, setContactData }) {
         </div>
       </header>
       <Messages id={id} data={data} />
-      <SendMessage data={data} id={id} setContactData={setContactData} />
+      <div className="send-message">
+        <div className="send-message-left">
+          <div className="send-file">
+            <i className="fas fa-paperclip"></i>
+          </div>
+          <input
+            type="text"
+            placeholder="Message"
+            value={message}
+            onChange={MessageInput}
+          />
+        </div>
+        <button
+          id="ozim"
+          className="send-btn"
+          type="button"
+          onClick={() => sendMessages(true)}
+        >
+          <BiSend />
+        </button>
+        <button
+          className="send-btn"
+          type="button"
+          onClick={() => sendMessages(false)}
+        >
+          <BiSend />
+        </button>
+      </div>
     </div>
   );
 }

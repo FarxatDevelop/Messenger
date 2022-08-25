@@ -19,6 +19,7 @@ function Right({ ContactData, setContactData, GroupData, ChannelData }) {
           path={"/contact/:id"}
           element={
             <RightInfo
+              ContactData={ContactData}
               isGroup={false}
               data={ContactData}
               setContactData={setContactData}
